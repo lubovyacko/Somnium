@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/css/main.css">
+    <script>
+        function sign() {
+            let email = document.getElementById("email").value,
+                password = document.getElementById("password").value;
+            let formData = {}
+            if (email != "" && password != "") {
+                formData['email'] = email;
+                formData['password'] = password;
+                fetch("sign", {
+                    body: JSON.stringify(formData),
+                    method: "post"
+                }).then(function (response) {
+                    return response.text()
+                }).then(function (data) {
+                    console.log(data)
+                });
+            }
+        }
+
+        
+       
+
+        function send_project() {
+            console.log(fromsData.getAll('name-project'))
+            fetch('add_project', {
+                method: 'post',
+                body: fromsData
+            }).then(function (response) {
+                    return response.text()
+                }).then(function (data) {
+                    console.log(data)
+                });
+        }
+        let fromsData = new FormData();
+        function data(self) {
+            if (self.type == 'file')
+            {
+                fromsData.set(self.getAttribute('name'),self.files[0]);
+            }
+            else
+                fromsData.set(self.getAttribute('name'), self.value);
+       
+        }
+        let count = 0;
+        function days() {
+            let name = document.getElementsByClassName('days-project');
+            let cardProject = document.getElementsByClassName('days');
+            cardProject[0].innerHTML = name[0].value;
+        }
+        function money() {
+            let name = document.getElementsByClassName('moneys');
+            let cardProject = document.getElementsByClassName('money');
+            cardProject[0].innerHTML = name[0].value;
+        }
+        function node0() {
+            let node0 = document.getElementsByClassName('main-project');
+            let node00 =
+                `
+            <div class='main-cur1'>
+            <span>Обложка</span>
+            <div class='upload'>
+                    <label for="attach-project-file">
+                    <div class="filename" id="attached-project-file">Загрузить изображение</div>
+                    <div>Рекомендованное расширение 500х320</div>               
+                    </label>
+                    <input id="attach-project-file" onchange='preview(); data(this);' type="file" name="img">
+            </div>
+            <span>Название проекта</span>
+                <input type='text' class='name-project' onkeyup='names();  data(this);' name='name-project'>
+            <span>Категории</span>
+                <select name='categories' onchange='data(this)'>
+                    <option>Выбирите категорию</option>
+                    <option>Игры</option>
+                    <option>Музыка</option>
+                    <option>Видео</option>
+                    <option>Издание</option>
+                    <option>Искусство</option>
+                    <option>Дизайн</option>
+                    <option>Еда</option>    
+                    <option>Мода</option>                    
+                    <option>Театр</option>                    
+                    <option>Технологии</option>                    
+                    <option>Спорт</option>                    
+                    <option>ИТ</option>                    
+                    <option>Экология</option>                        
+                </select>
+            <span>Краткое описание</span>
+            <textarea  class='about-project' name='about-project'  onkeyup='about(); data(this)'></textarea>
+            <span>Город реализации</span>
+                <input type='text' class='city-project' name='city-project' onkeyup='city(); data(this)'>
+            <span>Номер телефона</span>
+                <input type='text' name='tel-project' onkeyup='data(this)'>
+            <span>Срок сбора средств</span>
+            <select onchange='data(this); days();' name='days-project' class='days-project' >
+                    <option>-</option>            
+                    <option>15</option>
+                    <option>30</option>
+                    <option>45</option>
+                    <option>60</option>
+                    <option>90</option>                    
+            </select>
+            <span>Сумма</span>
+                <input type='text' name='money' class='moneys' onkeyup='data(this);money();'>
+            </div>
+            <div class='card'>
+             <img src='../static/images/nf.gif' id='img-preview'/>
+             <span class='name_project'></span>
+             <span>Автор:</span><span class='author'></span>
+             <span class='about_project'></span>
+             <div>
+             <span class='city'></span>
+             <span class='precent'>0%</span>
+             </div>
+            <div>         
+             <div>
+             <span ><span class='money'>0</span>грн</span>
+             <span>Собрал</span>
+             </div>
+             <div>
+             <span><span class='days'>0</span>дней</span>
+             <span>Осталось дней</span>             
+             </div>
+             </div>            
+            </div>
+            `;
+            node0[0].innerHTML = node00;
+        }
+
+        function node1() {
+            let node0 = document.getElementsByClassName('main-project');
+            let node00 =
+                `
+            <div class='main-cur1'>
+            <span>Сумма</span>
+            <input type='text' name='money-v' onkeyup='data(this);'>
+            <span>Oписание</span>
+            <textarea  class='about-v'  onkeyup='data(this)'></textarea>
+            <span>Количество</span>
+            <input type='text' name='count-v' onkeyup='data(this)'>
+            <div class='upload'>
+                    <label for="attach-project-file">
+                    <div class="filename" id="attached-project-file">Загрузить изображение</div>
+                    <div>Рекомендованное расширение 500х320</div>               
+                    </label>
+                    <input id="attach-project-file" type="file" name='img-v' onchange='data(this)'>
+            </div>
+        </div>
+            
+           
+            `;
+            node0[0].innerHTML = node00;
+        }
+
+        function node2() {
+            let node0 = document.getElementsByClassName('main-project');
+            let node00 =
+                `
+            <div class='main-cur1'>
+                    <div class='upload'>
+                    <label for="attach-project-file">
+                    <div class="filename" style="line-height: 120px;" id="attached-project-file">Загрузить видео</div>
+                    </label>
+                    <input id="attach-project-file"  type="file" onchange='data(this)' name='video-v'>
+            </div>
+            <span>Oписание</span>
+            <textarea  class='about-project'  onkeyup='data(this)' name='main-about'></textarea>
+          
+        </div>
+            
+           
+            `;
+            node0[0].innerHTML = node00;
+        }
+
+        function node3() {
+            let node0 = document.getElementsByClassName('main-project');
+            let node00 =
+                `
+            <div class='main-cur1'>
+                    <div class='upload'>
+                    <label for="attach-project-file">
+                    <div class="filename" id="attached-project-file">Загрузить изображение</div>
+                    <div>Рекомендованное расширение 500х320</div>               
+                    </label>
+                    <input id="attach-project-file" onchange='preview()' type="file">
+            </div>
+            <span>О себе</span>
+            <textarea  class='about-project'  onkeyup='about()'></textarea>
+            <span>Ваш город</span>
+            <input type='text'>
+            <span>Соц. сети</span>
+            <input type='text'>
+        </div>
+            
+           
+            `;
+            node0[0].innerHTML = node00;
+        }
+
+        function node4() {
+            let node0 = document.getElementsByClassName('main-project');
+            let node00 =
+                `
+           
+            <div>
+                    <div class='faces'>
+                        <span onclick='faceF()'>Физическое лицо</span>
+                        <span onclick='faceU()'>Юридическое лицо</span>
+                        <span onclick='faceP()'>Предприниматель</span>
+                    </div>
+                   <div class="face"></div>
+        </div>
+            
+           
+            `;
+            node0[0].innerHTML = node00;
+        }
+
+        function faceF() {
+            let node0 = document.getElementsByClassName('face');
+            let node00 =
+                `
+            <span>ФИО</span>
+            <input type='text'>
+            <span>ИНН</span>
+            <input type='text'>
+            <span>Название банка</span>
+            <input type='text'>
+            <span>Рассчетный счет</span>
+            <input type='text'>
+            <span>МФО банка</span>
+            <input type='text'>
+            `;
+            node0[0].innerHTML = node00;
+        }
+
+        function faceU() {
+            let node0 = document.getElementsByClassName('face');
+            let node00 =
+                `
+            <span>Полное название</span>
+            <input type='text'>
+            <span>Краткое название</span>
+            <input type='text'>
+            <span>ЄДРПОУ</span>
+            <input type='text'>
+            <span>КВЭД (главная)</span>
+            <input type='text'>
+            <span>Юридический адрес</span>
+            <input type='text'>
+            <span>Фактический адрес</span>
+            <input type='text'>
+            <span>Почтовый адрес</span>
+            <input type='text'>
+            <span>Название банка</span>
+            <input type='text'>
+            <span>Рассчетный счет</span>
+            <input type='text'>
+            <span>МФО банка</span>
+            <input type='text'>
+            <span>ФИО руководителя</span>
+            <input type='text'>
+            `;
+            node0[0].innerHTML = node00;
+        }
+
+        function faceP() {
+            let node0 = document.getElementsByClassName('face');
+            let node00 =
+                `
+            <span>Полное название</span>
+            <input type='text'>
+            <span>ИНН</span>
+            <input type='text'>
+            <span>КВЭД (главная)</span>
+            <input type='text'>
+            <span>Юридический адрес</span>
+            <input type='text'>
+            <span>Фактический адрес</span>
+            <input type='text'>
+            <span>Почтовый адрес</span>
+            <input type='text'>
+            <span>Название банка</span>
+            <input type='text'>
+            <span>Рассчетный счет</span>
+            <input type='text'>
+            <span>МФО банка</span>
+            <input type='text'>
+            <span>ФИО руководителя</span>
+            <input type='text'>
+            `;
+            node0[0].innerHTML = node00;
+        }
+
+        function preview() {
+            let input = document.getElementById('attach-project-file');
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                let img = document.getElementById('img-preview');
+                img.setAttribute('src', e.target.result)
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+
+        function names() {
+            let name = document.getElementsByClassName('name-project');
+            let cardProject = document.getElementsByClassName('name_project');
+            cardProject[0].innerHTML = name[0].value;
+        }
+
+        function about() {
+            let name = document.getElementsByClassName('about-project');
+            let cardProject = document.getElementsByClassName('about_project');
+            cardProject[0].innerHTML = name[0].value;
+        }
+
+        function city() {
+            let name = document.getElementsByClassName('city-project');
+            let cardProject = document.getElementsByClassName('city');
+            cardProject[0].innerHTML = name[0].value;
+        }
+
+        function getNodeH(params) {
+            let nodes = document.getElementById('select-bg').children;
+            if (count > 0) {
+                nodes[count].children[0].classList.remove('tab_bg_active');
+                count = --count;
+            } else if (count == 0) {
+                nodes[count].children[0].classList.remove('tab_bg_active');
+            }
+
+            if (count == 0) {
+                node0();
+
+            } else if (count == 1) {
+                node1();
+
+            } else if (count == 2) {
+                node2();
+
+            } else if (count == 3) {
+                node3();
+            send_project();
+                
+
+            } else if (count == 4) {
+                node4();
+                faceF();
+            }
+
+        }
+
+        function getNodeE(params) {
+            let nodes = document.getElementById('select-bg').children;
+            if (count <= nodes.length - 2) {
+                nodes[count].children[0].classList.add('tab_bg_active');
+                count = ++count;
+            } else if (count == 4) {
+                nodes[count].children[0].classList.add('tab_bg_active');
+            }
+            if (count == 0) {
+                node0();
+
+            } else if (count == 1) {
+                node1();
+
+            } else if (count == 2) {
+                node2();
+
+            } else if (count == 3) {
+                node3();
+                send_project();
+
+            } else if (count == 4) {
+                node4();
+                faceF();
+            }
+        }
+    </script>
+
+</head>
+
+<body onload="node0()">
+    <header>
+        <span id='logo'>SOMNIUM</span>
+        <menu>
+            <ul>
+                <li>
+                    <a href="#">Проекты</a>
+                </li>
+                <li>
+                    <a href="#">Создать проект</a>
+                </li>
+                <li>
+                    <a href="#">Специалисты</a>
+                </li>
+                <li>
+                    <a href="#"></a>
+                </li>
+                <li>
+                    <a href="#"></a>
+                </li>
+            </ul>
+        </menu>
+        <a href="/signin">Войти</a>
+    </header>
+    <main class="project">
+        <div class="flags-tab">
+            <ul id="select-bg">
+                <li>
+                    <span class="tab_bg">1</span>
+                </li>
+                <li>
+                    <span class="tab_bg">2</span>
+                </li>
+                <li>
+                    <span class="tab_bg">3</span>
+                </li>
+                <li>
+                    <span class="tab_bg">4</span>
+                </li>
+                <li>
+                    <span class="tab_bg-last">5</span>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <div class="main-project"></div>
+            <div class="controll">
+                <input type="button" value="Назад" onclick="getNodeH()">
+                <input type="button" value="Вперед" onclick="getNodeE()">
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

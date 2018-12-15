@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/css/main.css">
+    <script>
+        function sorts(event) {
+            let items = document.getElementsByClassName('sort-items');
+            for (let index = 0; index < items[0].children.length; index++) {
+                if (items[0].children[index].classList == 'active') {
+                    items[0].children[index].classList.remove('active');
+                }
+            }
+           
+            
+            event.classList.add('active');
+
+            let mas = [];
+            let temp = []
+            let m = `
+            {% for iter in project %}
+                {% for it in iter %}
+                    ${temp.push('{{it}}')}
+                {% endfor %}
+                ${mas.push(temp)}
+                ${temp=[]}                                
+            {% endfor %}
+            `
+            let node0='';
+            let v_project = document.getElementById('v-project');
+            for (let index = 0; index < mas.length; index++) {
+                if(mas[index][3]==event.innerHTML)
+                 node0 += `
+            <div class='card'>
+                <img src=${mas[index][2]} id='img-preview' />
+                <span class='name_project'>${mas[index][1]}</span>
+                <span>Автор:</span>
+                <span class='author'></span>
+                <span class='about_project'>${mas[index][4]}</span>
+                <div>
+                    <span class='city'>${mas[index][5]}</span>
+                    <span class='precent'>0%</span>
+                </div>
+                <div>
+                    <div>
+                        <span>
+                            <span class='money'>${mas[index][8]}</span>грн</span>
+                        <span>Собрал</span>
+                    </div>
+                    <div>
+                        <span>
+                            <span class='days'>${mas[index][7]}</span>дней</span>
+                        <span>Осталось дней</span>
+                    </div>
+                    
+                </div>
+            </div>
+                  `;
+            else if(event.innerHTML=='Все')
+            node0 += `
+            <div class='card'>
+                <img src=${mas[index][2]} id='img-preview' />
+                <span class='name_project'>${mas[index][1]}</span>
+                <span>Автор:</span>
+                <span class='author'></span>
+                <span class='about_project'>${mas[index][4]}</span>
+                <div>
+                    <span class='city'>${mas[index][5]}</span>
+                    <span class='precent'>0%</span>
+                </div>
+                <div>
+                    <div>
+                        <span>
+                            <span class='money'>${mas[index][8]}</span>грн</span>
+                        <span>Собрал</span>
+                    </div>
+                    <div>
+                        <span>
+                            <span class='days'>${mas[index][7]}</span>дней</span>
+                        <span>Осталось дней</span>
+                    </div>
+                    
+                </div>
+            </div>
+                  `;
+            v_project.innerHTML = node0;
+            }
+           
+        }
+    window.onload = function () {
+        let m = document.getElementsByClassName('active');
+    sorts(m[0]);
+    }
+    </script>
+</head>
+
+<body>
+    <header>
+        <span id='logo'>SOMNIUM</span>
+        <menu>
+            <ul>
+                <li>
+                    <a href="#">Проекты</a>
+                </li>
+                <li>
+                    <a href="/project">Создать проект</a>
+                </li>
+                <li>
+                    <a href="#">Специалисты</a>
+                </li>
+                <li>
+                    <a href="#"></a>
+                </li>
+                <li>
+                    <a href="#"></a>
+                </li>
+            </ul>
+        </menu>
+        <a href="signin">Войти</a>
+    </header>
+    <main>
+        <div class="sort">
+            <ul class="sort-items">
+                <li onclick="sorts(this)" class="active">Все</li>
+                <li onclick="sorts(this)">Игры</li>
+                <li onclick="sorts(this)">Музыка</li>
+                <li onclick="sorts(this)">Видео</li>
+                <li onclick="sorts(this)">Издание</li>
+                <li onclick="sorts(this)">Искусство</li>
+                <li onclick="sorts(this); return '{% set temp = Театр %}'">Дизайн</li>
+                <li onclick="sorts(this)">Еда</li>
+                <li onclick="sorts(this)">Мода</li>
+                <li onclick="sorts(this)">Театр</li>
+                <li onclick="sorts(this)">Технологии</li>
+                <li onclick="sorts(this)">Спорт</li>
+                <li onclick="sorts(this)">ИТ</li>
+                <li onclick="sorts(this)">Экология</li>
+            </ul>
+        </div>
+        <div id="v-project">
+            
+        </div>
+    </main>
+</body>
+
+</html>

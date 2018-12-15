@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/css/main.css">
+    <script src="../static/js/cookies.js"></script>
+    <script>
+                    console.log(cookie.get('id'));        
+        function preview() {
+            let input = document.getElementById('attach-project-file');
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                let img = document.getElementById('img-preview');
+                img.setAttribute('src', e.target.result)
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+        function send_project() {
+            getData();
+            fetch('edit_user', {
+                method: 'post',
+                body: fromsData
+            }).then(function (response) {
+                    return response.text()
+                }).then(function (data) {
+                    console.log(data)
+                });
+        }
+        let fromsData = new FormData();
+        function getData(){
+            let obj = document.getElementsByClassName('show_config')[0].children;
+            
+            for (const iterator of obj) {
+                if(iterator.getAttribute('type')){
+                
+                fromsData.set(iterator.getAttribute('name'),iterator.value)
+
+                }
+                else if(iterator.getAttribute('name')=='about'){
+                fromsData.set(iterator.getAttribute('name'),iterator.value)
+                    
+                }
+                else
+                {
+                    for (const it of iterator.children) {
+                        for (const iter of it.children) {
+                            if(iter.getAttribute('type')){
+                fromsData.set(iter.getAttribute('name'),iter.value)
+                            
+                        }
+                        }
+                        
+                    }
+                }
+            }
+        }
+        function data(self) {
+            if (self.type == 'file')
+            {
+                fromsData.set(self.getAttribute('name'),self.files[0]);
+            }
+            else
+                fromsData.set(self.getAttribute('name'), self.value);
+       
+        }
+        function node0() {
+            let node0 = document.getElementsByClassName('show_config');
+            let node00 =
+                `
+                <div>
+                <div>
+                <span>Имя</span>
+                <input onkeyup='data(this)' name='firstname' type='text' value='{{users[0][1]}}'/>
+                </div>
+                <div>
+                <span>Фамилия</span>
+                <input onkeyup='data(this)' name='lastname' type='text' value='{{users[0][8]}}'/>
+                </div>
+                </div>
+                <span>Телефон</span>
+                <input onkeyup='data(this)' name='phone' type='text' value='{{users[0][9]}}'/>
+                <span>Город</span>
+                <input onkeyup='data(this)' name='city' type='text' value='{{users[0][5]}}' />
+                <span>О себе</span>
+                <textarea onkeyup='data(this)' name='about'>{{users[0][6]}}</textarea>
+                <div>
+                <div>
+                <span>Новый пароль</span>
+                <input onkeyup='data(this)' name='password' type='password' value='' />
+                </div>
+                <div>
+                <span>Повторить</span>
+                <input onkeyup='data(this)' name='repassword' type='repassword' value=''/>
+                </div>
+                </div>
+                <button onclick='send_project()'>Сохранить</button>
+                
+            `;
+            node0[0].innerHTML = node00;
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <span id='logo'>SOMNIUM</span>        
+        <menu>
+            <ul>
+                <li><a href="#">Проекты</a></li>
+                <li><a href="/project">Создать проект</a></li>
+                <li><a href="#">Специалисты</a></li>
+                <li><a href="#"></a></li>
+                <li><a href="#"></a></li>
+            </ul>
+        </menu>
+        <a href="signin">Войти</a>
+    </header>
+    <main>
+        <div class="mains">
+        <div class="img">
+            <img src="../static/images/nf.gif" alt="1" id="img-preview">
+            <div class="upload-img">
+            <label for="attach-project-file">
+                <div class="filename" id="attached-project-file">Загрузить изображение</div>
+                </label>
+                <input id="attach-project-file" onchange="preview(); data(this);"  name="img" type="file">
+        </div>
+    </div>
+    <div class="info">
+        <div class="name">{{users[0][1]}} {{users[0][8]}}</div>
+        <div class="about">{{users[0][6]}}</div>
+    </div>
+</div>
+    <div class="config">
+        <ul>
+            <li>Счет</li>
+            <li onclick="node0()">Настройки</li>
+            <li>Резюме</li>
+            <li>Создал</li>
+            <li>Поддержал</li>
+            <li>Заинтересован</li>
+        </ul>
+        <div class="show_config"></div>
+    </div>
+    </main>
+</body>
+</html>

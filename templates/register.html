@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/css/main.css">
+    <script>
+function register(){
+    let name = document.getElementById('name').value,
+    email = document.getElementById('email').value,
+    password = document.getElementById('password').value,
+    repassword = document.getElementById('repassword').value,
+    check = document.getElementById('argee').value;
+    if(password === repassword && name != '' && email != '' && password !='' && repassword != '' && check!='off'){
+    let formData = {};
+    formData['name']=name;
+    formData['email']=email;   
+    formData['password']=password;   
+    formData['check']=check;   
+        fetch("add",
+    {
+        body: JSON.stringify(formData),
+        method: "post"
+    }).then(function(response) {
+        return response.text()
+    }).then(function(data){
+        console.log(data)
+    });
+    }
+
+}
+    
+    </script>
+</head>
+<body>
+    <header>
+        <span id='logo'>SOMNIUM</span>        
+        <menu>
+            <ul>
+                <li><a href="#">Проекты</a></li>
+                <li><a href="/project">Создать проект</a></li>
+                <li><a href="#">Специалисты</a></li>
+                <li><a href="#"></a></li>
+                <li><a href="#"></a></li>
+            </ul>
+        </menu>
+        <a href="/signin">Войти</a>
+    </header>
+    <main>
+            <div class='register'>
+                    <div class="reg-header">Eсть аккаунт?<a href="#"> Войти</a></div>
+                    <div class='reg-main'>
+                        <div style="font-size: 20pt; padding:15px 8px;">Регистрация</div>
+                        <input type="text" placeholder="Имя" name="" id="name">
+                        <input type="email" placeholder="Email" name="" id="email">
+                        <input type="password" placeholder="Пароль" id="password">
+                        <input type="password" placeholder="Повторить пароль" id="repassword">
+                        <div>
+                                <input type="checkbox" name="" id="argee" >
+                                <label for="argee">Создавая учетную запись, вы соглашаетесь с <a href="#">правилами платформы</a></label>
+                        </div>
+                        <input type="button" onclick="register()" value="Зарегистрироваться">
+                    </div>
+                </div>
+    </main>
+</body>
+</html>

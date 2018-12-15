@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/css/main.css">
+    <script src="../static/js/cookies.js"></script>
+   
+   <script>
+        function sign() {
+            let email = document.getElementById("email").value,
+                password = document.getElementById("password").value;
+            let formData = {}
+            if (email != "" && password != "") {
+                formData['email'] = email;
+                formData['password'] = password;
+                formData['r'] = document.getElementById('remember').value;
+                fetch("sign", {
+                    body: JSON.stringify(formData),
+                    method: "post"
+                }).then(function (response) {
+                    return response.text()
+                }).then(function (data) {
+                    cookie.set('id',data);
+                    location.href='users'
+                });
+            }
+        }
+        
+    </script>
+</head>
+
+<body>
+    <header>
+        <span id='logo'>SOMNIUM</span>
+        <menu>
+            <ul>
+                <li>
+                    <a href="#">Проекты</a>
+                </li>
+                <li>
+                    <a href="/project">Создать проект</a>
+                </li>
+                <li>
+                    <a href="#">Специалисты</a>
+                </li>
+                <li>
+                    <a href="#"></a>
+                </li>
+                <li>
+                    <a href="#"></a>
+                </li>
+            </ul>
+        </menu>
+        <a href="/signin">Войти</a>
+    </header>
+    <main>
+        <div class='register'>
+            <div class='reg-main'>
+                <div style="font-size: 20pt; padding:15px 8px;">Вход</div>
+                <input type="email" placeholder="Email" name="" id="email">
+                <input type="password" placeholder="Пароль" id="password">
+                <a href="#" style="padding:10px 8px;">Забыли пароль?</a>
+                <input type="button" style="margin: 10px 0px;" value="Войти" onclick="sign()">
+                <div>
+                    <input type="checkbox" name="" id="remember">
+                    <label for="remember">Запомнить меня</a>
+                    </label>
+                </div>
+                <div class="res">Впервые на <a href="/register">Somnium</a>?</div>
+            </div>
+        </div>
+    </main>
+    <footer></footer>
+</body>
+
+</html>
